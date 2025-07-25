@@ -1,3 +1,6 @@
+function OpenMiniFiles()
+  MiniFiles.open()
+end
 return {
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -17,7 +20,12 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      require('mini.files').setup()
+      require('mini.files').setup {
+        mappings = { mark_goto = '`' },
+      }
+      -- vim.keymap.set('n', '-', ':lua MiniFiles.open()<CR>', { desc = 'Open mini files tree' })
+      -- vim.keymap.set('n', '-', MiniFiles.open, { desc = 'Open mini files tree' })
+      vim.keymap.set('n', '-', OpenMiniFiles, { desc = 'Open mini files tree' })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

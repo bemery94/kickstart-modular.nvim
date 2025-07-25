@@ -40,3 +40,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Allows searching previous commands directly with Ctrl-F
+vim.keymap.set('n', '<C-f>', ':<C-f>')
+
+-- Copy to system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>x', '"+x')
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
