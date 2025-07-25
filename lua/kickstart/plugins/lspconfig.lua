@@ -1,3 +1,50 @@
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('blaGroup', {
+    clear = false,
+  }),
+  callback = function(e)
+    local opts = { buffer = e.buf, remap = false }
+    vim.keymap.set('n', 'gd', function()
+      vim.lsp.buf.definition()
+    end, opts)
+    vim.keymap.set('n', 'gi', function()
+      vim.lsp.buf.implementation()
+    end, opts)
+    vim.keymap.set('n', 'gr', function()
+      vim.lsp.buf.references()
+    end, opts)
+    vim.keymap.set('n', 'gw', function()
+      vim.lsp.buf.workspace_symbol()
+    end, opts)
+    vim.keymap.set('n', 'af', function()
+      vim.lsp.buf.code_action()
+    end, opts)
+    -- vim.keymap.set("n", "<A-CR>", function() vim.lsp.buf.code_action() end, opts)
+    -- vim.keymap.set("n", "W", function() vim.lsp.buf.workspace_symbol() end, opts)
+    vim.keymap.set('n', '<leader>vd', function()
+      vim.diagnostic.open_float()
+    end, opts)
+    vim.keymap.set('n', '<F1>', function()
+      vim.diagnostic.open_float()
+    end, opts)
+    vim.keymap.set('n', '<F2>', function()
+      vim.diagnostic.jump { count = 1, float = true }
+    end, opts)
+    vim.keymap.set('n', '<S-F2>', function()
+      vim.diagnostic.jump { count = -1, float = true }
+    end, opts)
+    vim.keymap.set('n', '<F6>', function()
+      vim.lsp.buf.rename()
+    end, opts)
+    vim.keymap.set('n', '<leader>rn', function()
+      vim.lsp.buf.rename()
+    end, opts)
+    vim.keymap.set('n', 'H', function()
+      vim.lsp.buf.signature_help()
+    end, opts)
+  end,
+})
+
 -- LSP Plugins
 return {
   {

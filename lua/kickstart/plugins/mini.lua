@@ -25,7 +25,13 @@ return {
       }
       -- vim.keymap.set('n', '-', ':lua MiniFiles.open()<CR>', { desc = 'Open mini files tree' })
       -- vim.keymap.set('n', '-', MiniFiles.open, { desc = 'Open mini files tree' })
-      vim.keymap.set('n', '-', OpenMiniFiles, { desc = 'Open mini files tree' })
+      vim.keymap.set('n', '-', function()
+        local MiniFiles = require 'mini.files'
+        local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+        vim.defer_fn(function()
+          MiniFiles.reveal_cwd()
+        end, 30)
+      end, { desc = 'Open mini files tree' })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
